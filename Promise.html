@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>es6练习</title>
+    <style>
+       
+    </style>
+</head>
+<body>
+	
+</body>
+    <script>
+        window.onload=function(){
+            // var test = new Promise( (resolve,reject) => {
+            //     var num = Math.random() * 2;
+            //     setTimeout(function () {
+            //         if(num<1){
+            //             resolve("成功!"); 
+            //         }else{
+            //             reject('失败');
+            //         }
+            //     }, 1000);
+            // });
+            // console.log("1111111111", Promise.prototype.finally);
+            // test
+            // .then(success => {
+            //     console.log("success："+ success);
+            // })
+            // .catch(error => {
+            //     console.log("error：" + error);
+            // })
+            // .finally(() => {
+            //     console.log("data：");
+            // })
+            // .all()
+            // .prototype()
+            // .race()
+            
+            // 链式操作的用法
+            var num = Math.random() * 2;
+            var chainOne = new Promise(function (resolve, reject) {
+                setTimeout(function () {
+                    if(num<1){
+                        resolve("成功!"); 
+                    }else{
+                        reject('失败');
+                    }
+                }, 1000);
+            });
+            function chainTwo() {
+                var p = new Promise(function (resolve, reject) {
+                    //做一些异步操作
+                    setTimeout(function () {
+                        if (num < 1) {
+                            resolve("成功!");
+                        } else {
+                            reject('失败');
+                        }
+                    }, 1000);
+                });
+                return p;
+            }
+            chainOne
+            .then(function (successMessage) {
+                console.log("chainOne! " + successMessage);
+                return chainTwo();
+            })
+            .then(function (successMessage) {
+                console.log("chainTwo! " + successMessage);
+            })
+            .catch((data) => {
+                console.log("chainOne! " + data);
+                return chainTwo();
+            })
+            .catch((data) => {
+                console.log("chainTwo! " + data);
+            });
+        }
+    </script>
+    <script src="http://fttx-sale-staticsource.oss-cn-hangzhou.aliyuncs.com/test/web/static/js/jquery-1.11.3.min.js"></script>   
+</html> 
