@@ -1,0 +1,2 @@
+# promise
+promise使用
